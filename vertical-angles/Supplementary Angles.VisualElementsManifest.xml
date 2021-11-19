@@ -1,0 +1,10 @@
+<Application xmlns:xsi="https://www.w3.org/2001/XMLSchema-instance">
+	<Identity Name="Esmail.Almaleeh"
+	Version="1.0.0.0"
+	Publisher="CN=Ajaeb Albarmaja Software, O=AjaebAlbarmaja Corporation, C=US"/>
+
+	<VisualElements BackgroundColor="#000000"
+	ShowNameOnSquare150x150Logo="on"
+	ForegroundText="light"/>
+</Application>
+

@@ -1,0 +1,285 @@
+[gd_scene load_steps=11 format=2]
+
+[ext_resource path="res://fonts/Roboto/Roboto-Regular.ttf" type="DynamicFontData" id=1]
+[ext_resource path="res://Main.gd" type="Script" id=2]
+[ext_resource path="res://icons/circle_half.svg" type="Texture" id=3]
+[ext_resource path="res://icons/eye_opened.svg" type="Texture" id=4]
+[ext_resource path="res://icons/move.svg" type="Texture" id=5]
+[ext_resource path="res://icons/eye_closed.svg" type="Texture" id=6]
+[ext_resource path="res://icons/restore.svg" type="Texture" id=7]
+
+[sub_resource type="DynamicFont" id=1]
+size = 70
+font_data = ExtResource( 1 )
+
+[sub_resource type="Curve2D" id=2]
+_data = {
+"points": PoolVector2Array( 0.00436884, 90.0095, -0.00436884, -90.0095, 1140, 980, 90.0007, 0.0134717, -90.0007, -0.0134717, 980, 820, 0.00139487, -90.013, -0.00139487, 90.013, 820, 980, -89.9952, -0.0146094, 89.9952, 0.0146094, 980, 1140, -0.000640184, 90.0132, 0.000640184, -90.0132, 1140, 980 )
+}
+
+[sub_resource type="DynamicFont" id=3]
+size = 45
+font_data = ExtResource( 1 )
+
+[node name="Node2D" type="Node2D"]
+script = ExtResource( 2 )
+
+[node name="A_Controller" type="Button" parent="."]
+margin_left = 1060.0
+margin_top = 30.0
+margin_right = 1157.0
+margin_bottom = 121.0
+focus_mode = 0
+mouse_default_cursor_shape = 13
+shortcut_in_tooltip = false
+icon = ExtResource( 5 )
+flat = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="C_Controller" type="Button" parent="."]
+margin_left = 1740.0
+margin_top = 860.0
+margin_right = 1837.0
+margin_bottom = 951.0
+focus_mode = 0
+mouse_default_cursor_shape = 13
+shortcut_in_tooltip = false
+icon = ExtResource( 5 )
+flat = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="D_Controller" type="Button" parent="."]
+margin_left = 110.0
+margin_top = 860.0
+margin_right = 207.0
+margin_bottom = 951.0
+focus_mode = 0
+mouse_default_cursor_shape = 13
+shortcut_in_tooltip = false
+icon = ExtResource( 5 )
+flat = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="A_B" type="Line2D" parent="."]
+z_index = 2
+points = PoolVector2Array( 980, 100, 980, 980 )
+width = 15.0
+default_color = Color( 0, 0.901961, 0.941176, 1 )
+begin_cap_mode = 2
+end_cap_mode = 2
+round_precision = 5
+
+[node name="D_B_C" type="Line2D" parent="."]
+z_index = 2
+points = PoolVector2Array( 1790, 980, 980, 980, 130, 980 )
+width = 15.0
+default_color = Color( 0, 0.901961, 0.941176, 1 )
+begin_cap_mode = 2
+end_cap_mode = 2
+sharp_limit = 1.0
+round_precision = 5
+
+[node name="A_Controller_Text" type="Label" parent="."]
+margin_left = 960.0
+margin_top = 20.0
+margin_right = 1000.0
+margin_bottom = 80.0
+custom_fonts/font = SubResource( 1 )
+text = "A"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="A_Controller_Text2" type="Label" parent="."]
+margin_left = 960.0
+margin_top = 987.0
+margin_right = 1006.0
+margin_bottom = 1070.0
+custom_fonts/font = SubResource( 1 )
+text = "B"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="C_Controller_Text" type="Label" parent="."]
+margin_left = 1860.0
+margin_top = 940.0
+margin_right = 1900.0
+margin_bottom = 1000.0
+custom_fonts/font = SubResource( 1 )
+text = "C"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="D_Controller_Text" type="Label" parent="."]
+margin_left = 40.0
+margin_top = 940.0
+margin_right = 80.0
+margin_bottom = 1000.0
+custom_fonts/font = SubResource( 1 )
+text = "D"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="A_B_C_Text_Director" type="Path2D" parent="."]
+curve = SubResource( 2 )
+
+[node name="A_B_C_Text_Director_Follow" type="PathFollow2D" parent="A_B_C_Text_Director"]
+position = Vector2( 1140, 980 )
+z_index = 2
+rotate = false
+cubic_interp = false
+loop = false
+
+[node name="A_B_C_Text" type="Label" parent="A_B_C_Text_Director/A_B_C_Text_Director_Follow"]
+margin_left = -27.7252
+margin_top = -42.8335
+margin_right = 50.2748
+margin_bottom = 40.1665
+custom_fonts/font = SubResource( 1 )
+text = "90"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="A_B_D_Text_Director" type="Path2D" parent="."]
+curve = SubResource( 2 )
+
+[node name="A_B_D_Text_Director_Follow" type="PathFollow2D" parent="A_B_D_Text_Director"]
+position = Vector2( 946.579, 823.33 )
+z_index = 2
+offset = 285.674
+rotate = false
+cubic_interp = false
+loop = false
+
+[node name="A_B_D_Text" type="Label" parent="A_B_D_Text_Director/A_B_D_Text_Director_Follow"]
+margin_left = -53.5363
+margin_top = -43.44
+margin_right = 24.4637
+margin_bottom = 39.56
+custom_fonts/font = SubResource( 1 )
+text = "90"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="A_B_C_Cutter" type="Polygon2D" parent="."]
+position = Vector2( 0, -10 )
+z_index = -2
+color = Color( 0, 0, 0, 1 )
+polygon = PoolVector2Array( 980, 110, 130, 110, 130, 990, 980, 990 )
+
+[node name="A_B_C_Cutter2" type="Polygon2D" parent="."]
+z_index = -1
+color = Color( 0, 0, 0, 1 )
+polygon = PoolVector2Array( 1790, 980, 980, 980, 130, 980, 50, 210, 80, 1040, 1880, 1030, 1880, 200 )
+
+[node name="A_B_D_Cutter" type="Polygon2D" parent="."]
+position = Vector2( 0, -10 )
+z_index = -4
+color = Color( 0, 0, 0, 1 )
+polygon = PoolVector2Array( 1790, 110, 980, 110, 980, 990, 1790, 990 )
+
+[node name="A_B_C_Circle" type="Sprite" parent="."]
+position = Vector2( 980, 980 )
+scale = Vector2( 0.504201, 0.504201 )
+z_index = -2
+texture = ExtResource( 3 )
+
+[node name="A_B_C_Circle2" type="Sprite" parent="."]
+position = Vector2( 980, 980 )
+scale = Vector2( 0.420168, 0.420168 )
+z_index = -3
+texture = ExtResource( 3 )
+
+[node name="A_B_C_Square" type="Line2D" parent="."]
+position = Vector2( 980, 980 )
+points = PoolVector2Array( 0, -80, 90, -80, 90, 0 )
+width = 7.0
+default_color = Color( 0, 1, 0.0862745, 1 )
+
+[node name="A_B_C_Square2" type="Line2D" parent="."]
+position = Vector2( 980, 980 )
+points = PoolVector2Array( 0, -80, -90, -80, -90, 0 )
+width = 7.0
+default_color = Color( 0, 1, 0.0862745, 1 )
+
+[node name="A_B_C_Hide_Text" type="Label" parent="."]
+margin_left = 30.0
+margin_top = 30.0
+margin_right = 151.0
+margin_bottom = 83.0
+custom_fonts/font = SubResource( 3 )
+text = "A-B-C:"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="A_B_C_Hide" type="TextureButton" parent="."]
+margin_left = 160.0
+margin_top = 30.0
+margin_right = 220.0
+margin_bottom = 90.0
+mouse_default_cursor_shape = 2
+toggle_mode = true
+texture_normal = ExtResource( 4 )
+texture_pressed = ExtResource( 6 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="A_B_D_Hide_Text" type="Label" parent="."]
+margin_left = 30.0
+margin_top = 100.0
+margin_right = 152.0
+margin_bottom = 153.0
+custom_fonts/font = SubResource( 3 )
+text = "A-B-D:"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="A_B_D_Hide" type="TextureButton" parent="."]
+margin_left = 160.0
+margin_top = 100.0
+margin_right = 220.0
+margin_bottom = 160.0
+mouse_default_cursor_shape = 2
+toggle_mode = true
+texture_normal = ExtResource( 4 )
+texture_pressed = ExtResource( 6 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Restore_Button" type="TextureButton" parent="."]
+margin_left = 1824.0
+margin_top = 40.0
+margin_right = 1891.0
+margin_bottom = 100.0
+mouse_default_cursor_shape = 2
+texture_normal = ExtResource( 7 )
+__meta__ = {
+"_edit_use_anchors_": false
+}

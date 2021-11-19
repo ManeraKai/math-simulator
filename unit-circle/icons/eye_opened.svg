@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   height="60"
+   viewBox="0 0 60 60"
+   width="60"
+   version="1.1"
+   id="svg6"
+   sodipodi:docname="eye_opened.svg"
+   inkscape:version="1.0.1 (3bc2e813f5, 2020-09-07)">
+  <metadata
+     id="metadata12">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title></dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <defs
+     id="defs10" />
+  <sodipodi:namedview
+     pagecolor="#c0c0c0"
+     bordercolor="#666666"
+     borderopacity="1"
+     objecttolerance="10"
+     gridtolerance="10"
+     guidetolerance="10"
+     inkscape:pageopacity="0"
+     inkscape:pageshadow="2"
+     inkscape:window-width="1920"
+     inkscape:window-height="1057"
+     id="namedview8"
+     showgrid="false"
+     inkscape:zoom="13.110938"
+     inkscape:cx="7.1782753"
+     inkscape:cy="19.666116"
+     inkscape:window-x="1358"
+     inkscape:window-y="-8"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="svg6" />
+  <path
+     d="M 0,0 H 60 V 60 H 0 Z"
+     fill="none"
+     id="path2"
+     style="stroke-width:2.5" />
+  <path
+     d="m 30,15 c 9.475,0 17.925,5.325 22.05,13.75 C 47.925,37.175 39.475,42.5 30,42.5 20.525,42.5 12.075,37.175 7.95,28.75 12.075,20.325 20.525,15 30,15 m 0,-5 C 17.5,10 6.825,17.775 2.5,28.75 6.825,39.725 17.5,47.5 30,47.5 42.5,47.5 53.175,39.725 57.5,28.75 53.175,17.775 42.5,10 30,10 Z m 0,12.5 c 3.45,0 6.25,2.8 6.25,6.25 0,3.45 -2.8,6.25 -6.25,6.25 -3.45,0 -6.25,-2.8 -6.25,-6.25 0,-3.45 2.8,-6.25 6.25,-6.25 m 0,-5 C 23.8,17.5 18.75,22.55 18.75,28.75 18.75,34.95 23.8,40 30,40 36.2,40 41.25,34.95 41.25,28.75 41.25,22.55 36.2,17.5 30,17.5 Z"
+     id="path4"
+     style="fill:#ffffff;stroke-width:2.5" />
+</svg>
