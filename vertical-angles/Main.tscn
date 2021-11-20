@@ -59,10 +59,37 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
+[node name="D_Controller" type="Button" parent="."]
+margin_left = 362.268
+margin_top = 426.123
+margin_right = 459.268
+margin_bottom = 517.123
+rect_pivot_offset = Vector2( 48, 45 )
+mouse_default_cursor_shape = 13
+shortcut_in_tooltip = false
+icon = ExtResource( 5 )
+flat = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="E_Controller" type="Button" parent="."]
+margin_left = 960.952
+margin_top = 951.753
+margin_right = 1057.95
+margin_bottom = 1042.75
+rect_pivot_offset = Vector2( 48, 45 )
+mouse_default_cursor_shape = 13
+shortcut_in_tooltip = false
+icon = ExtResource( 5 )
+flat = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
 [node name="A_B" type="Line2D" parent="."]
 z_index = 2
 points = PoolVector2Array( 960, 100, 960, 540, 960, 980 )
-width = 15.0
 default_color = Color( 0, 0.901961, 0.941176, 1 )
 begin_cap_mode = 2
 end_cap_mode = 2
@@ -71,7 +98,6 @@ round_precision = 5
 [node name="D_B_C" type="Line2D" parent="."]
 z_index = 2
 points = PoolVector2Array( 1490, 540, 960, 540, 430, 540 )
-width = 15.0
 default_color = Color( 0, 0.901961, 0.941176, 1 )
 begin_cap_mode = 2
 end_cap_mode = 2

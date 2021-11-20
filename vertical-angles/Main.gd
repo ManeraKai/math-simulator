@@ -34,40 +34,41 @@ func angle_calc(p1, p2, p3):
 
 
 var A_B_slope: int = 0
-
 var C_B_slope: int = 0
 
-
 func A():
-	return Vector2(stepify($A_B.points[0].x, 0.01), stepify($A_B.points[0].y, 0.01))
+	var pos = $A_B.points[0]
+	return Vector2(stepify(pos.x, 0.01), stepify(pos.y, 0.01))
 
 
 func B():
-	return Vector2(stepify($A_B.points[1].x, 0.01), stepify($A_B.points[1].y, 0.01))
+	var pos = $A_B.points[1]
+	return Vector2(stepify(pos.x, 0.01), stepify(pos.y, 0.01))
 
 
 func C():
-	return Vector2(stepify($D_B_C.points[0].x, 0.01), stepify($D_B_C.points[0].y, 0.01))
+	var pos = $D_B_C.points[0]
+	return Vector2(stepify(pos.x, 0.01), stepify(pos.y, 0.01))
 
 
 func D():
-	return Vector2(stepify($D_B_C.points[2].x, 0.01), stepify($D_B_C.points[2].y, 0.01))
+	var pos = $D_B_C.points[2]
+	return Vector2(stepify(pos.x, 0.01), stepify(pos.y, 0.01))
 
 
 func E():
-	return Vector2(stepify($A_B.points[2].x, 0.01), stepify($A_B.points[2].y, 0.01))
+	var pos = $A_B.points[2]
+	return Vector2(stepify(pos.x, 0.01), stepify(pos.y, 0.01))
 
 
 func A_Controller():
-	return Vector2(
-		stepify($A_Controller.rect_position.x, 0.01), stepify($A_Controller.rect_position.y, 0.01)
-	)
+	var pos = $A_Controller.rect_position
+	return Vector2(stepify(pos.x, 0.01), stepify(pos.y, 0.01))
 
 
 func C_Controller():
-	return Vector2(
-		stepify($C_Controller.rect_position.x, 0.01), stepify($C_Controller.rect_position.y, 0.01)
-	)
+	var pos = $C_Controller.rect_position
+	return Vector2(stepify(pos.x, 0.01), stepify(pos.y, 0.01))
 	
 
 var A_B_C_Hide: bool = false
@@ -86,6 +87,7 @@ var A_B_D_unite_offset: float
 var A_B_C_Cutter_z_index: int
 var A_B_D_Cutter_z_index: int
 
+var screen = Vector2(1920,1080)
 
 func _ready():
 	#adjusting the screen size if the program was running on windows (x86) and centering the window
@@ -106,51 +108,38 @@ func _ready():
 
 	$Restore_Button.connect('pressed', self, '_on_Restore_Button_pressed')
 
-	
 	$A_Controller.rect_pivot_offset = $A_Controller.rect_size / 2
 	$C_Controller.rect_pivot_offset = $C_Controller.rect_size / 2
-
-
+	
+	$E_Controller.rect_rotation = 180
 	$C_Controller.rect_rotation = angle_calc(B(), C(), Vector2(0, B().y)) - 90
-
-	$A_Controller.rect_position.x = B().x - ($A_Controller.rect_size.x / 2)
-	$C_Controller.rect_position = C() - $C_Controller.rect_size / 2
+	$D_Controller.rect_rotation = -90
+	
+	var aPos = A() - $A_Controller.rect_size / 2
+	$A_Controller.rect_position = aPos
+	$E_Controller.rect_position = screen - $A_Controller.rect_size - aPos
+	var cPos = C() - $C_Controller.rect_size / 2
+	$C_Controller.rect_position = cPos
+	$D_Controller.rect_position = screen - $C_Controller.rect_size - cPos
 
 	#A()
-	$A_B.points[0] = (
-		A_Controller()
-		+ Vector2(round($A_Controller.rect_size.x / 2), round($A_Controller.rect_size.y / 2))
-	)
+	var aLinePos = A_Controller() + $A_Controller.rect_size / 2
+	$A_B.points[0] = aLinePos
+	$A_B.points[2] = screen - aLinePos
 
+	var aTextPos = A_Controller()+ $A_Controller.rect_size / 2- $A_Controller_Text.rect_size / 2
 	if A().x - B().x < 0:
-		$A_Controller_Text.rect_position = (
-			A_Controller()
-			+ $A_Controller.rect_size / 2
-			- $A_Controller_Text.rect_size / 2
-			- Vector2($A_Controller_Text.rect_size.x * 1.5, 0)
-		)
+		aTextPos -= Vector2($A_Controller_Text.rect_size.x * 1.5, 0)
 	else:
-		$A_Controller_Text.rect_position = (
-			A_Controller()
-			+ $A_Controller.rect_size / 2
-			- $A_Controller_Text.rect_size / 2
-			+ Vector2($A_Controller_Text.rect_size.x * 1.5, 0)
-		)
+		aTextPos += Vector2($A_Controller_Text.rect_size.x * 1.5, 0)
+	$A_Controller_Text.rect_position = aTextPos
 
-	if C().x - B().x < 0:
-		$C_Controller_Text.rect_position = (
-			$C_Controller.rect_position
-			+ $C_Controller.rect_size / 2
-			- $C_Controller_Text.rect_size / 2
-			- Vector2($C_Controller_Text.rect_size.x * 1.5, 0)
-		)
+	var cTextPos = $C_Controller.rect_position + $C_Controller.rect_size / 2 - $C_Controller_Text.rect_size / 2
+	if C().x > B().x:
+		cTextPos -= Vector2($C_Controller_Text.rect_size.x * 1.5, 0)
 	else:
-		$C_Controller_Text.rect_position = (
-			$C_Controller.rect_position
-			+ $C_Controller.rect_size / 2
-			- $C_Controller_Text.rect_size / 2
-			+ Vector2($C_Controller_Text.rect_size.x * 1.5, 0)
-		)
+		cTextPos += Vector2($C_Controller_Text.rect_size.x * 1.5, 0)
+	$C_Controller_Text.rect_position = cTextPos
 
 	$A_B_C_Text_Director/A_B_C_Text_Director_Follow.unit_offset = (
 		(angle_calc(B(), A(), C()) / 2 + angle_calc(B(), C(), Vector2(C().x, B().y)))
@@ -180,7 +169,9 @@ func _ready():
 	A_B_C_unite_offset = $A_B_C_Text_Director/A_B_C_Text_Director_Follow.unit_offset
 	A_B_D_unite_offset = $A_B_D_Text_Director/A_B_D_Text_Director_Follow.unit_offset
 
+	text_rotation()
 	is_90()
+
 
 func angle_values():
 	$A_B_C_Text_Director/A_B_C_Text_Director_Follow/A_B_C_Text.text = str(
@@ -199,163 +190,74 @@ func angle_values():
 		round(angle_calc(B(), E(), C()))
 	)
 
-var i = 0
 func text_rotation():
-
+	var bac = angle_calc(B(), A(), C())
+	var bad = angle_calc(B(), A(), D())
+	var bbc = angle_calc(B(), Vector2(B().x, 0), C())
+	var bbd = angle_calc(B(), Vector2(B().x, 1920), D())
+	
+	var abcPos = 45 / 360.0
+	var abdPos = 135 / 360.0
+	var dbePos = 225 / 360.0
+	var cbePos = 315 / 360.0
+	
 	if C().x > B().x:
+		var a = angle_calc(B(), Vector2(B().x, 1920), C()) - 90
+		var d = angle_calc(B(), Vector2(B().x, 0), D())
 		if A().x > B().x:
-			if (A().x - E().x) != 0 && (C().x - D().x) != 0:
+			if A().x != E().x && C().x != D().x:
 				if (A().y - E().y) / (A().x - E().x) < (C().y - D().y) / (C().x - D().x):
-					print(1)
-					$A_B_C_Text_Director/A_B_C_Text_Director_Follow.unit_offset = (
-						(180 + (angle_calc(B(), A(), C()) / 2 + angle_calc(B(), Vector2(B().x, 1920), C()) - 90))
-						/ 360.0
-					)
-					$A_B_D_Text_Director/A_B_D_Text_Director_Follow.unit_offset = (
-						(180 + (90 - angle_calc(B(), A(), D()) / 2 + angle_calc(B(), Vector2(B().x, 0), D())))
-						/ 360.0
-					)
-					$D_B_E_Text_Director/D_B_E_Text_Director_Follow.unit_offset = (
-						(180 + (180 + angle_calc(B(), A(), C()) / 2 + angle_calc(B(), Vector2(B().x, 1920), C()) - 90))
-						/ 360.0
-					)
-					$C_B_E_Text_Director/C_B_E_Text_Director_Follow.unit_offset = (
-						(180 + (270 - angle_calc(B(), A(), D()) / 2 + angle_calc(B(), Vector2(B().x, 0), D())))
-						/ 360.0
-					)
+					abcPos = (180 + bac / 2 + a) / 360.0
+					abdPos = (270 - bad / 2 + d) / 360.0
+					dbePos = (360 + bac / 2 + a) / 360.0
+					cbePos = (90  - bad / 2 + d) / 360.0
 				else:
-					print(2)
-					$A_B_C_Text_Director/A_B_C_Text_Director_Follow.unit_offset = (
-						(180 + (angle_calc(B(), A(), C()) / -2 + angle_calc(B(), Vector2(B().x, 1920), C()) - 90))
-						/ 360.0
-					)
-					$A_B_D_Text_Director/A_B_D_Text_Director_Follow.unit_offset = (
-						(180 + (90 - angle_calc(B(), A(), D()) / -2 + angle_calc(B(), Vector2(B().x, 0), D())))
-						/ 360.0
-					)
-					$D_B_E_Text_Director/D_B_E_Text_Director_Follow.unit_offset = (
-						(180 + (180 + angle_calc(B(), A(), C()) / -2 + angle_calc(B(), Vector2(B().x, 1920), C()) - 90))
-						/ 360.0
-					)
-					$C_B_E_Text_Director/C_B_E_Text_Director_Follow.unit_offset = (
-						(180 + (270 - angle_calc(B(), A(), D()) / -2 + angle_calc(B(), Vector2(B().x, 0), D())))
-						/ 360.0
-					)
+					abcPos = (180 - bac / 2 + a) / 360.0
+					abdPos = (270 + bad / 2 + d) / 360.0
+					dbePos = (360 - bac / 2 + a) / 360.0
+					cbePos = (90  + bad / 2 + d) / 360.0
 		else:
-			if (A().x - E().x) != 0 && (C().x - D().x) != 0:
+			if A().x != E().x && C().x != D().x:
 				if (A().y - E().y) / (A().x - E().x) < (C().y - D().y) / (C().x - D().x):
-					print(3)
-					$A_B_C_Text_Director/A_B_C_Text_Director_Follow.unit_offset = (
-						(180 + (angle_calc(B(), A(), C()) / -2 + angle_calc(B(), Vector2(B().x, 1920), C()) - 90))
-						/ 360.0
-					)
-					$A_B_D_Text_Director/A_B_D_Text_Director_Follow.unit_offset = (
-						(180 + (90 - angle_calc(B(), A(), D()) / -2 + angle_calc(B(), Vector2(B().x, 0), D())))
-						/ 360.0
-					)
-					$D_B_E_Text_Director/D_B_E_Text_Director_Follow.unit_offset = (
-						(180 + (180 + angle_calc(B(), A(), C()) / -2 + angle_calc(B(), Vector2(B().x, 1920), C()) - 90))
-						/ 360.0
-					)
-					$C_B_E_Text_Director/C_B_E_Text_Director_Follow.unit_offset = (
-						(180 + (270 - angle_calc(B(), A(), D()) / -2 + angle_calc(B(), Vector2(B().x, 0), D())))
-						/ 360.0
-					)
+					abcPos = (180 - bac / 2 + a) / 360.0
+					abdPos = (270 + bad / 2 + d) / 360.0
+					dbePos = (360 - bac / 2 + a) / 360.0
+					cbePos = (90  + bad / 2 + d) / 360.0
 				else:
-					print(4)
-					$A_B_C_Text_Director/A_B_C_Text_Director_Follow.unit_offset = (
-						(angle_calc(B(), A(), C()) / 2 + angle_calc(B(), Vector2(B().x, 1920), C()) - 90)
-						/ 360.0
-					)
-					$A_B_D_Text_Director/A_B_D_Text_Director_Follow.unit_offset = (
-						(90 - angle_calc(B(), A(), D()) / 2 + angle_calc(B(), Vector2(B().x, 0), D()))
-						/ 360.0
-					)
-					$D_B_E_Text_Director/D_B_E_Text_Director_Follow.unit_offset = (
-						(180 + angle_calc(B(), A(), C()) / 2 + angle_calc(B(), Vector2(B().x, 1920), C()) - 90)
-						/ 360.0
-					)
-					$C_B_E_Text_Director/C_B_E_Text_Director_Follow.unit_offset = (
-						(270 - angle_calc(B(), A(), D()) / 2 + angle_calc(B(), Vector2(B().x, 0), D()))
-						/ 360.0
-					)
+					abcPos = (bac / 2 + a) / 360.0
+					abdPos = (90  - bad / 2 + d) / 360.0
+					dbePos = (180 + bac / 2 + a) / 360.0
+					cbePos = (270 - bad / 2 + d) / 360.0
 	else:
 		if A().x > B().x:
-			if (A().x - E().x) != 0 && (C().x - D().x) != 0:
+			if A().x != E().x && C().x != D().x:
 				if (A().y - E().y) / (A().x - E().x) < (C().y - D().y) / (C().x - D().x):
-					print(5)
-					$A_B_C_Text_Director/A_B_C_Text_Director_Follow.unit_offset = (
-						(180 + (angle_calc(B(), A(), C()) / -2 + angle_calc(B(), Vector2(B().x, 0), C()) - 90))
-						/ 360.0
-					)
-					$A_B_D_Text_Director/A_B_D_Text_Director_Follow.unit_offset = (
-						(180 + (90 - angle_calc(B(), A(), D()) / -2 + angle_calc(B(), Vector2(B().x, 1920), D())))
-						/ 360.0
-					)
-					$D_B_E_Text_Director/D_B_E_Text_Director_Follow.unit_offset = (
-						(180 + (180 + angle_calc(B(), A(), C()) / -2 + angle_calc(B(), Vector2(B().x, 0), C()) - 90))
-						/ 360.0
-					)
-					$C_B_E_Text_Director/C_B_E_Text_Director_Follow.unit_offset = (
-						(180 + (270 - angle_calc(B(), A(), D()) / -2 + angle_calc(B(), Vector2(B().x, 1920), D())))
-						/ 360.0
-					)
+					abcPos = (180 - bac / 2 + bbc - 90)/ 360.0
+					abdPos = (270 + bad / 2 + bbd)/ 360.0
+					dbePos = (360 - bac / 2 + bbc - 90)/ 360.0
+					cbePos = (90 + bad / 2 + bbd)/ 360.0
 				else:
-					print(6)
-					$A_B_C_Text_Director/A_B_C_Text_Director_Follow.unit_offset = (
-						(180 + (angle_calc(B(), A(), C()) / 2 + angle_calc(B(), Vector2(B().x, 0), C()) - 90))
-						/ 360.0
-					)
-					$A_B_D_Text_Director/A_B_D_Text_Director_Follow.unit_offset = (
-						(180 + (90 - angle_calc(B(), A(), D()) / 2 + angle_calc(B(), Vector2(B().x, 1920), D())))
-						/ 360.0
-					)
-					$D_B_E_Text_Director/D_B_E_Text_Director_Follow.unit_offset = (
-						(180 + (180 + angle_calc(B(), A(), C()) / 2 + angle_calc(B(), Vector2(B().x, 0), C()) - 90))
-						/ 360.0
-					)
-					$C_B_E_Text_Director/C_B_E_Text_Director_Follow.unit_offset = (
-						(180 + (270 - angle_calc(B(), A(), D()) / 2 + angle_calc(B(), Vector2(B().x, 1920), D())))
-						/ 360.0
-					)
+					abcPos = (180 + bac / 2 + bbc - 90)/ 360.0
+					abdPos = (270 - bad / 2 + bbd)/ 360.0
+					dbePos = (360 + bac / 2 + bbc - 90)/ 360.0
+					cbePos = (90 - bad / 2 + bbd)/ 360.0
 		else:
-			if (A().x - E().x) != 0 && (C().x - D().x) != 0:
+			if A().x != E().x && C().x != D().x:
 				if (A().y - E().y) / (A().x - E().x) < (C().y - D().y) / (C().x - D().x):
-					print(7)
-					$A_B_C_Text_Director/A_B_C_Text_Director_Follow.unit_offset = (
-						(180 + (angle_calc(B(), A(), C()) / 2 + angle_calc(B(), Vector2(B().x, 0), C()) - 90))
-						/ 360.0
-					)
-					$A_B_D_Text_Director/A_B_D_Text_Director_Follow.unit_offset = (
-						(180 + (90 - angle_calc(B(), A(), D()) / 2 + angle_calc(B(), Vector2(B().x, 1920), D())))
-						/ 360.0
-					)
-					$D_B_E_Text_Director/D_B_E_Text_Director_Follow.unit_offset = (
-						(180 + (180 + angle_calc(B(), A(), C()) / 2 + angle_calc(B(), Vector2(B().x, 0), C()) - 90))
-						/ 360.0
-					)
-					$C_B_E_Text_Director/C_B_E_Text_Director_Follow.unit_offset = (
-						(180 + (270 - angle_calc(B(), A(), D()) / 2 + angle_calc(B(), Vector2(B().x, 1920), D())))
-						/ 360.0
-					)
+					abcPos = (180 + bac / 2 + bbc - 90)/ 360.0
+					abdPos = (270 - bad / 2 + bbd)/ 360.0
+					dbePos = (360 + bac / 2 + bbc - 90)/ 360.0
+					cbePos = (90 - bad / 2 + bbd)/ 360.0
 				else:
-					print(8)
-					$A_B_C_Text_Director/A_B_C_Text_Director_Follow.unit_offset = (
-						(180 + (angle_calc(B(), A(), C()) / -2 + angle_calc(B(), Vector2(B().x, 0), C()) - 90))
-						/ 360.0
-					)
-					$A_B_D_Text_Director/A_B_D_Text_Director_Follow.unit_offset = (
-						(180 + (90 - angle_calc(B(), A(), D()) / -2 + angle_calc(B(), Vector2(B().x, 1920), D())))
-						/ 360.0
-					)
-					$D_B_E_Text_Director/D_B_E_Text_Director_Follow.unit_offset = (
-						(180 + (180 + angle_calc(B(), A(), C()) / -2 + angle_calc(B(), Vector2(B().x, 0), C()) - 90))
-						/ 360.0
-					)
-					$C_B_E_Text_Director/C_B_E_Text_Director_Follow.unit_offset = (
-						(180 + (270 - angle_calc(B(), A(), D()) / -2 + angle_calc(B(), Vector2(B().x, 1920), D())))
-						/ 360.0
-					)
+					abcPos = (180 - bac / 2 + bbc - 90)/ 360.0
+					abdPos = (270 + bad / 2 + bbd)/ 360.0
+					dbePos = (360 - bac / 2 + bbc - 90)/ 360.0
+					cbePos = (90 + bad / 2 + bbd)/ 360.0
+
+	$A_B_C_Text_Director/A_B_C_Text_Director_Follow.unit_offset = abcPos
+	$A_B_D_Text_Director/A_B_D_Text_Director_Follow.unit_offset = abdPos
+	$D_B_E_Text_Director/D_B_E_Text_Director_Follow.unit_offset = dbePos
+	$C_B_E_Text_Director/C_B_E_Text_Director_Follow.unit_offset = cbePos
 
 func is_90():
 	if round(angle_calc(B(), A(), C())) == 90:
@@ -374,95 +276,70 @@ func is_90():
 		$A_B_C_Circle.visible = true
 	
 func A_calc():
-	$A_Controller.set_position(A_Controller_start_position + get_local_mouse_position())
+	var ctrlPos = A_Controller_start_position + get_local_mouse_position()
+	$A_Controller.set_position(ctrlPos)
+	$E_Controller.set_position(Vector2(1920,1080) - $A_Controller.rect_size- ctrlPos)
 
-	if (A().y < B().y):
-		$A_Controller.rect_rotation = angle_calc(B(), A(), Vector2(0, B().y)) - 90
+	if A().y < B().y:
+		var rot = angle_calc(B(), A(), Vector2(0, B().y)) - 90
+		$A_Controller.rect_rotation = rot
+		$E_Controller.rect_rotation = rot + 180
 	else:
-		$A_Controller.rect_rotation = angle_calc(B(), A(), Vector2(1920, B().y)) +90
+		var rot =angle_calc(B(), A(), Vector2(1920, B().y)) +90
+		$A_Controller.rect_rotation = rot
+		$E_Controller.rect_rotation = rot + 180
 
-	# A()
-	$A_B.points[0] = (
-		A_Controller()
-		+ Vector2(round($A_Controller.rect_size.x / 2), round($A_Controller.rect_size.y / 2))
-	)
-	$A_B.points[2] = (Vector2(
-		1920 - (A_Controller().x + round($A_Controller.rect_size.x / 2)),
-		1080 - (A_Controller().y + round($A_Controller.rect_size.y / 2))
-	))
+	var linePos = A_Controller() + $A_Controller.rect_size / 2
+	$A_B.points[0] = linePos
+	$A_B.points[2] = Vector2(1920,1080) - linePos
 
-	if A_B_difference().x < 0:
-		$A_Controller_Text.rect_position = (
-			A_Controller()
-			+ $A_Controller.rect_size / 2
-			- $A_Controller_Text.rect_size / 2
-			- Vector2($A_Controller_Text.rect_size.x * 1.5, 0)
-		)
-		$E_Controller_Text.rect_position = (
-			Vector2(1920,1080) - A_Controller()
-			- $A_Controller.rect_size / 2
-			- $A_Controller_Text.rect_size / 2
-			+ Vector2($E_Controller_Text.rect_size.x * 1.5, 0)
-		)
+	var aPos =  A_Controller() + $A_Controller.rect_size / 2 - $A_Controller_Text.rect_size / 2
+	var aPosVal = Vector2($A_Controller_Text.rect_size.x * 1.5, 0)
+	if A().x < B().x:
+		aPos -= aPosVal
 	else:
-		$A_Controller_Text.rect_position = (
-			A_Controller()
-			+ $A_Controller.rect_size / 2
-			- $A_Controller_Text.rect_size / 2
-			+ Vector2($A_Controller_Text.rect_size.x * 1.5, 0)
-		)
-		$E_Controller_Text.rect_position = (
-			Vector2(1920,1080) - A_Controller()
-			- $A_Controller.rect_size / 2
-			- $A_Controller_Text.rect_size / 2
-			- Vector2($E_Controller_Text.rect_size.x * 1.5, 0)
-		)
+		aPos += aPosVal
+	$A_Controller_Text.rect_position = aPos
+	$E_Controller_Text.rect_position = screen - aPos
+
 	$A_B_C_Cutter.polygon[0] = A()
 	$A_B_D_Cutter.polygon[1] = A()
 	$A_B_D_Cutter.polygon[0] = Vector2((C().x + A().x) / 2, (C().y + A().y) / 2 - 500)
 
 func C_calc():
-	$C_Controller.set_position(C_Controller_start_position + get_local_mouse_position())
-
-	if (C().y < B().y):
-		$C_Controller.rect_rotation = angle_calc(B(), C(), Vector2(0, B().y)) - 90
+	var pos = C_Controller_start_position + get_local_mouse_position()
+	$C_Controller.set_position(pos)
+	$D_Controller.set_position(screen- $C_Controller.rect_size - pos)
+	if C().y < B().y:
+		var rot = angle_calc(B(), C(), Vector2(0, B().y)) - 90
+		$C_Controller.rect_rotation = rot
+		$D_Controller.rect_rotation = rot + 180
 	else:
-		$C_Controller.rect_rotation = angle_calc(B(), C(), Vector2(1920, B().y)) + 90
+		var rot = angle_calc(B(), C(), Vector2(1920, B().y)) + 90
+		$C_Controller.rect_rotation = rot
+		$D_Controller.rect_rotation = rot + 180
+
 
 	# C()
-	$D_B_C.points[0] = (
+	var cLinePos = (
 		$C_Controller.rect_position
 		+ Vector2(round($C_Controller.rect_size.x / 2), round($C_Controller.rect_size.y / 2))
 	)
-	$D_B_C.points[2] = (Vector2(1920,1080) - $D_B_C.points[0])
+	$D_B_C.points[0] = cLinePos
+	$D_B_C.points[2] = screen - cLinePos
 
-
-	if C().x - B().x < 0:
-		$C_Controller_Text.rect_position = (
-			$C_Controller.rect_position
-			+ $C_Controller.rect_size / 2
-			- $C_Controller_Text.rect_size / 2
-			- Vector2($C_Controller_Text.rect_size.x * 1.5, 0)
-		)
-		$D_Controller_Text.rect_position = (
-			Vector2(1920,1080) - $C_Controller.rect_position
-			- $C_Controller.rect_size / 2
-			- $C_Controller_Text.rect_size / 2
-			+ Vector2($C_Controller_Text.rect_size.x * 1.5, 0)
-		)
+	var cCtrlPos = $C_Controller.rect_position+ $C_Controller.rect_size / 2- $C_Controller_Text.rect_size / 2
+	var dCtrlPos = Vector2(1920,1080) + cCtrlPos
+	var ctrlVal = Vector2($C_Controller_Text.rect_size.x * 1.5, 0)
+	if C().x > B().x:
+		cCtrlPos -= ctrlVal
+		dCtrlPos += ctrlVal
 	else:
-		$C_Controller_Text.rect_position = (
-			$C_Controller.rect_position
-			+ $C_Controller.rect_size / 2
-			- $C_Controller_Text.rect_size / 2
-			+ Vector2($C_Controller_Text.rect_size.x * 1.5, 0)
-		)
-		$D_Controller_Text.rect_position = (
-		Vector2(1920,1080) - 	$C_Controller.rect_position
-			- $C_Controller.rect_size / 2
-			- $C_Controller_Text.rect_size / 2
-			- Vector2($C_Controller_Text.rect_size.x * 1.5, 0)
-		)
+		cCtrlPos += ctrlVal
+		dCtrlPos -= ctrlVal
+	$C_Controller_Text.rect_position = cCtrlPos
+	$D_Controller_Text.rect_position = dCtrlPos
+
 	$A_B_D_Cutter.polygon[3] = C()
 	$A_B_D_Cutter.polygon[0] = Vector2((C().x + A().x) / 2, (C().y + A().y) / 2 - 500)
 	
@@ -612,10 +489,16 @@ func _on_Restore_Button_pressed():
 
 
 	$A_Controller.rect_position = A_Controller_loc
+	$E_Controller.rect_position = screen - $A_Controller.rect_size -  A_Controller_loc
 	$C_Controller.rect_position = C_loc - $C_Controller.rect_size / 2
+	$D_Controller.rect_position = screen - $C_Controller.rect_size - (C_loc - $C_Controller.rect_size / 2)
 
-	$A_Controller.rect_rotation = angle_calc(B(), A_loc, Vector2(0, B().y)) - 90
-	$C_Controller.rect_rotation = angle_calc(B(), C_loc, Vector2(0, B().y)) - 90
+	
+	$A_Controller.rect_rotation = 0
+	$E_Controller.rect_rotation = 180
+
+	$C_Controller.rect_rotation = 90
+	$D_Controller.rect_rotation = 270
 
 	$A_Controller_Text.rect_position = (
 		A_Controller_loc
@@ -623,6 +506,7 @@ func _on_Restore_Button_pressed():
 		- $A_Controller_Text.rect_size / 2
 		+ Vector2($A_Controller_Text.rect_size.x * 1.5, 0)
 	)
+
 	$C_Controller_Text.rect_position = (
 		$C_Controller.rect_position
 		+ $C_Controller.rect_size / 2
