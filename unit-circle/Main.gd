@@ -249,6 +249,8 @@ func _on_Restore_Button_pressed():
 	TrianglePos()
 	AngleText()
 	SinCosCal()
+	$A_Hide.pressed = false
+	$Unite_Circle/A_Text_Director/A_Text_Director_Follow/A_Text.visible = false
 
 func _on_FullScreen_Button_pressed():
 	var state = OS.window_fullscreen
