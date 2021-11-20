@@ -1,4 +1,4 @@
 # Co-Interior-angles
-This tool lets you dynamically change angles values easily. It's for teaching young students Co-Interior angles.
+Try it: https://manerakai.itch.io/co-interior-angles
 
-<img src="resources/co-interior-angles.gif">
+![gif](resources/co-interior-angles.gif)
