@@ -3,8 +3,8 @@ This Repo contains multiple simulator apps that help students understand math mo
 
 Try them: https://manerakai.itch.io/
 
-<img width=480 src="supplementary-angles/resources/supplementary-angles.gif"/> <img width=480 src="co-interior-angles/resources/co-interior-angles.gif"/>
-<img width=480 src="triangle-angles/resources/triangle-angles.gif"/> <img width=480 src="unit-circle/resources/screenshot.gif"/>
+<img width=720 src="supplementary-angles/resources/supplementary-angles.gif"/> <img width=720 src="co-interior-angles/resources/co-interior-angles.gif"/>
+<img width=720 src="triangle-angles/resources/triangle-angles.gif"/> <img width=720 src="unit-circle/resources/screenshot.gif"/>
 
 
 
