@@ -2,7 +2,7 @@
 This Repo contains multiple simulator apps that help students understand math more by visualizing it.
 
 Try them: https://manerakai.itch.io/
-
+<div align=center>
 <a href="./supplementary-angles">
   <img width=360 src="supplementary-angles/resources/supplementary-angles.gif"/>
 </a>
@@ -15,7 +15,7 @@ Try them: https://manerakai.itch.io/
 <a href="./unit-circle">
    <img width=360 src="unit-circle/resources/screenshot.gif"/>
 </a>
-
+</div>
 
 ## Donate
  [![Buy me a coffee](https://raw.githubusercontent.com/ManeraKai/manerakai/main/icons/bmc.svg)](https://www.buymeacoffee.com/manerakai)&nbsp;&nbsp;
